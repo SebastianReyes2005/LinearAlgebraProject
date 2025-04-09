@@ -176,4 +176,17 @@ matrix***, or ***stochastic matrix***.
 $$
 
 We then utilized this stochastic matrix, in combination with Python, to
-find the ***steady-state vector*** for the system.
+find the ***steady-state vector*** for the system, as displayed in
+**Figure 6.**
+
+**Figure 6:**
+
+$$
+\overrightarrow{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
+$$
+
+This displayed multiple key findings. Firstly, $P(1+2) > P(3+4)$. That
+is, it is more likely that overnight stock movement will be positive
+rather than negative. This is intuitive, as stocks tend to rise.
+Additionally, $P(1+3) \approx P(2+4)$. Once more, this is to be
+expected,
