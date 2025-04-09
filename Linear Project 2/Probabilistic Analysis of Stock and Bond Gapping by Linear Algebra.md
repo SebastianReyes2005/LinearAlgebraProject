@@ -185,8 +185,13 @@ $$
 \overrightarrow{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
 $$
 
-This displayed multiple key findings. Firstly, $P(1+2) > P(3+4)$. That
-is, it is more likely that overnight stock movement will be positive
-rather than negative. This is intuitive, as stocks tend to rise.
-Additionally, $P(1+3) \approx P(2+4)$. Once more, this is to be
-expected,
+This displayed multiple key findings.
+
+1.  $P(1+2) > P(3+4)$. That is, it is more likely that overnight stock
+    movement will be positive rather than negative. This is intuitive,
+    as stocks tend to rise.
+2.  $P(1+3) \approx P(2+4)$. Once more, this is to be expected, as
+    20-year bonds are usually constant/steady.
+3.  $P(2+3) > P(1+4)$. This is logical due to stocks and bonds
+    historically being negatively correlated. As such, it is natural
+    that divergence is more likely than convergence.
