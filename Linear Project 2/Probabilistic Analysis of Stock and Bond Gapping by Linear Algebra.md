@@ -82,6 +82,19 @@ infinity. $$
 \lim_{m \to \infty} \vec{s}^{(m)} = \vec{s}
 $$ This results in what is known as a ***steady-state vector***.
 
+# Least-Squares Approximation: Introduction
+
+***Least-Squares Approximation*** is defined as a method to fit a line
+through a set of data points by minimizing the sum of the squared
+distances between the fitted line and each data point. In linear algebra
+terms, least-squares approximation is seeking to find a line on
+$\mathbb{R}^2$, $\begin{bmatrix} a \\ b \end{bmatrix}$ , that best fits
+a series of points $(x_1, y_1)...(x_n, y_n)$. The values $a$ and $b$ are
+the slope and intercept of the line, respectively, and the line of "best
+fit" is defined as the line that minimizes
+$s = (ax_1 + b - y_1)^2 ... + (ax_n + b - y_n)^2$, where $ax_n+b$ is the
+value predicted by the line, and $y_n$ is the value of the data point.
+
 # Markov Chains: Application
 
 We utilized Python to create a dataframe (an object used to store
