@@ -94,6 +94,71 @@ the slope and intercept of the line, respectively, and the line of "best
 fit" is defined as the line that minimizes
 $s = (ax_1 + b - y_1)^2 ... + (ax_n + b - y_n)^2$, where $ax_n+b$ is the
 value predicted by the line, and $y_n$ is the value of the data point.
+In terms more closely aligned with linear algebra, $s$ may also be
+defined by the quantity below.
+
+$$
+s =
+\left\| 
+\begin{bmatrix}
+ax_1 + b \\
+\vdots \\
+ax_n + b
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\right\|^2
+$$
+
+This implies that the below value is to be minimized.
+
+$$
+\left\|
+\begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{bmatrix}
+\begin{bmatrix}
+a \\
+b
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\right\|^2
+$$
+
+Defining
+$A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$,
+$\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$, and
+$\vec{b} = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}$, this
+leaves us with the goal of minimizing the quantity
+$\left\| A\vec{v} - \vec{b} \right\|^2$. Knowing this, the establishment
+of three main facts must be established prior to continuing:
+
+1.  If $\overrightarrow{v}$ minimizes
+    $\left\| A\vec{v} - \vec{b} \right\|^2$,
+    $\overrightarrow{b}-A\overrightarrow{v}$ is normal to every vector
+    in $im(A)$
+    $\Rightarrow (A \overrightarrow{w}) \cdot (\overrightarrow{b} - A \overrightarrow{v}) = 0$.
+2.  Given two vectors $\overrightarrow{w_1}$ and $\overrightarrow{w_2}$,
+    $\overrightarrow{w_1}\cdot\overrightarrow{w_2}=\overrightarrow{w_1^T}\;\overrightarrow{w_2} \Rightarrow (A \overrightarrow{w})^T(\overrightarrow{b}-A \overrightarrow{v}) = 0 \Rightarrow \overrightarrow{w^T} A^T(\overrightarrow{b}-A \overrightarrow{v}) = 0$.
+3.  Given a $\overrightarrow{w}$ such that
+    $\overrightarrow{w} \cdot \overrightarrow{w'} = 0$ for **all**
+    $\overrightarrow{w'}$,
+    $\Rightarrow \overrightarrow{w'} = \overrightarrow{w} = 0 \Rightarrow \overrightarrow{w} \cdot (A^T(\overrightarrow{b} - A \overrightarrow{v}) = 0$
+    **UNSURE, CHECK MATH THEORY HERE**
+
+Thus, the ***normal equation*** to be used is defined as
+$(A^TA) \overrightarrow{v} = A^T \overrightarrow{b}$.
 
 # Markov Chains: Application
 
