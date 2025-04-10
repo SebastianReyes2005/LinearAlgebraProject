@@ -32,8 +32,13 @@ def get_gap(df, current_date):
         return np.nan
     return (data.iloc[-1]['Open'] - data.iloc[-2]['Close'])/ data.iloc[-2]['Close']
 
-spy_data = load_stock_data("SPY.csv")
-bond_20_data = load_stock_data("TLT.csv")
+import os
+base_dir = os.path.dirname(os.path.abspath(__file__))
+spy_path = os.path.join(base_dir, "SPY.csv")
+tlt_path = os.path.join(base_dir, "TLT.csv")
+
+spy_data = load_stock_data(spy_path)
+bond_20_data = load_stock_data(tlt_path)
 # Assume the first command-line argument is the lower bound start date
 start_limit = pd.Timestamp("2004-12-01")  # e.g., "2004-01-01"
 
