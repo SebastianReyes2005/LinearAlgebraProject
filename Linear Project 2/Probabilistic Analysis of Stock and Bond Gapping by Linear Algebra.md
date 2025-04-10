@@ -80,7 +80,15 @@ investigate the long-term behavior of a system. This can be done by
 finding the vector $\overrightarrow{s}^{(m)}$ as $m$ approaches
 infinity. $$
 \lim_{m \to \infty} \vec{s}^{(m)} = \vec{s}
-$$ This results in what is known as a ***steady-state vector***.
+$$ This results in what is known as a ***steady-state vector***. This
+steady-state vector may be found via the formula shown below, where $I$
+is an identity matrix of the same dimensions as the probability matrix
+$P$, and where $\vec{s}$ is the steady state vector. This formula is
+equivalent to solving a homogeneous system.
+
+$$
+(I-P) \vec{s} = 0
+$$
 
 # Least-Squares Approximation: Introduction
 
@@ -248,6 +256,7 @@ ourselves with **Figure 5**. This was our final ***probability
 matrix***, or ***stochastic matrix***.
 
 **Figure 5:** $$
+P = 
 \begin{bmatrix}  
 0.2088 & 0.1891 & 0.2087 & 0.2223 \\  
 0.2784 & 0.2988 & 0.3675 & 0.2997 \\  
@@ -257,10 +266,17 @@ matrix***, or ***stochastic matrix***.
 $$
 
 We then utilized this stochastic matrix, in combination with Python, to
-find the ***steady-state vector*** for the system, as displayed in
-**Figure 6.**
+find the ***steady-state vector*** for the system. The formula used for
+this calculation is displayed in **Figure 6**, and the resulting
+steady-state vector is as shown in **Figure 7.**
 
 **Figure 6:**
+
+$$
+(I-P)\vec{s} = 0
+$$
+
+**Figure 7:**
 
 $$
 \overrightarrow{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
