@@ -9,7 +9,7 @@ output: pdf_document
 
 **By Sam Lu and Sebastian Reyes**
 
-# General Introduction
+# 1. Introduction
 
 This project analyzes stock and bond behavior via data from the SPDR S&P
 500 ETF Trust (SPY) and the iShares 20+ Year Treasury Bond ETF (TLT),
@@ -28,9 +28,11 @@ fitting a polynomial via least-squares approximation to stock market
 data could be used to provide insights on overnight price movements over
 a set interval of time.
 
-**NEED TO CITE WHERE WE GOT THE DATA FROM**
+**CBT, NEED TO CITE WHERE WE GOT THE DATA FROM**
 
-# Markov Chains: Introduction
+# 2. Markov Chains
+
+## 2A. Background
 
 A ***Markov chain*** is defined as an evolving system comprising of a
 sequence of ***stages*** where each stage is in one of a finite number
@@ -91,82 +93,7 @@ $$
 (I-P) \vec{s} = 0
 $$
 
-# Least-Squares Approximation: Introduction
-
-***Least-Squares Approximation***, per our class, is defined as a method
-to fit a line through a set of data points by minimizing the sum of the
-squared distances between the fitted line and each data point. In linear
-algebra terms, least-squares approximation is seeking to find a line on
-$\mathbb{R}^2$, $\begin{bmatrix} a \\ b \end{bmatrix}$ , that best fits
-a series of points $(x_1, y_1)...(x_n, y_n)$. The values $a$ and $b$ are
-the slope and intercept of the line, respectively, and the line of "best
-fit" is defined as the line that minimizes
-$s = (ax_1 + b - y_1)^2 ... + (ax_n + b - y_n)^2$, where $ax_n+b$ is the
-value predicted by the line, and $y_n$ is the value of the data point.
-In terms more closely aligned with linear algebra, $s$ may also be
-defined by the quantity below.
-
-$$
-s =
-\left\| 
-\begin{bmatrix}
-ax_1 + b \\
-\vdots \\
-ax_n + b
-\end{bmatrix}
--
-\begin{bmatrix}
-y_1 \\
-\vdots \\
-y_n
-\end{bmatrix}
-\right\|^2
-$$
-
-This implies that the below value is to be minimized.
-
-$$
-\left\|
-\begin{bmatrix}
-x_1 & 1 \\
-\vdots & \vdots \\
-x_n & 1
-\end{bmatrix}
-\begin{bmatrix}
-a \\
-b
-\end{bmatrix}
--
-\begin{bmatrix}
-y_1 \\
-\vdots \\
-y_n
-\end{bmatrix}
-\right\|^2
-$$
-
-Defining
-$A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$,
-$\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$, and
-$\vec{b} = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}$, this
-leaves us with the goal of minimizing the quantity
-$\left\| A\vec{v} - \vec{b} \right\|^2$. Knowing this, the establishment
-of three main facts must be established prior to continuing:
-
-1.  If $\vec{v}$ minimizes $\left\| A\vec{v} - \vec{b} \right\|^2$,
-    $\vec{b}-A\vec{v}$ is normal to every vector in $im(A)$
-    $\Rightarrow (A \vec{w}) \cdot (\vec{b} - A \vec{v}) = 0$.
-2.  Given two vectors $\vec{w_1}$ and $\vec{w_2}$,
-    $\vec{w_1}\cdot\vec{w_2}=\vec{w_1}^T\;\vec{w_2} \Rightarrow (A \vec{w})^T(\vec{b}-A \vec{v}) = 0 \Rightarrow \vec{w^T} A^T(\vec{b}-A \vec{v}) = 0$.
-3.  Given a $\vec{w}$ such that $\vec{w} \cdot \vec{w'} = 0$ for **all**
-    $\vec{w'}$,
-    $\Rightarrow \vec{w'} = \vec{w} = 0 \Rightarrow \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0$
-    **UNSURE, CHECK MATH THEORY HERE**
-
-Thus, the ***normal equation*** to be used is defined as
-$(A^TA) \vec{v} = A^T \vec{b}$.
-
-# Markov Chains: Application
+## 2B. Application Methods
 
 We utilized Python to create a dataframe (an object used to store
 tabular data) which displayed the share price of SPY and the share price
@@ -280,15 +207,98 @@ $$
 \vec{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
 $$
 
-This displayed multiple key findings.
+## 2C. Application Results
+
+The steady-state vector found provided three primary insights.
 
 1.  $P(1+2) > P(3+4)$. That is, it is more likely that overnight stock
     movement will be positive rather than negative. This is intuitive,
-    as stocks tend to rise.\
+    as stocks tend to rise.
 2.  $P(1+3) \approx P(2+4)$. Once more, this is to be expected, as
-    20-year bonds are usually constant/steady.\
+    20-year bonds are usually constant/steady.
 3.  $P(2+3) > P(1+4)$. This is logical due to stocks and bonds
     historically being negatively correlated. As such, it is natural
     that divergence is more likely than convergence.
 
-# Least-Squares Approximation: Application
+# 3. Least-Squares Approximation
+
+## 3A. Background
+
+***Least-Squares Approximation***, per our class, is defined as a method
+to fit a line through a set of data points by minimizing the sum of the
+squared distances between the fitted line and each data point. In linear
+algebra terms, least-squares approximation is seeking to find a line on
+$\mathbb{R}^2$, $\begin{bmatrix} a \\ b \end{bmatrix}$ , that best fits
+a series of points $(x_1, y_1)...(x_n, y_n)$. The values $a$ and $b$ are
+the slope and intercept of the line, respectively, and the line of "best
+fit" is defined as the line that minimizes
+$s = (ax_1 + b - y_1)^2 ... + (ax_n + b - y_n)^2$, where $ax_n+b$ is the
+value predicted by the line, and $y_n$ is the value of the data point.
+In terms more closely aligned with linear algebra, $s$ may also be
+defined by the quantity below.
+
+$$
+s =
+\left\| 
+\begin{bmatrix}
+ax_1 + b \\
+\vdots \\
+ax_n + b
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\right\|^2
+$$
+
+This implies that the below value is to be minimized.
+
+$$
+\left\|
+\begin{bmatrix}
+x_1 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{bmatrix}
+\begin{bmatrix}
+a \\
+b
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\
+\vdots \\
+y_n
+\end{bmatrix}
+\right\|^2
+$$
+
+Defining
+$A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$,
+$\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$, and
+$\vec{b} = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}$, this
+leaves us with the goal of minimizing the quantity
+$\left\| A\vec{v} - \vec{b} \right\|^2$. Knowing this, the establishment
+of three main facts must be established prior to continuing:
+
+1.  If $\vec{v}$ minimizes $\left\| A\vec{v} - \vec{b} \right\|^2$,
+    $\vec{b}-A\vec{v}$ is normal to every vector in $im(A)$. This
+    implies that$(A \vec{w}) \cdot (\vec{b} - A \vec{v}) = 0$, for any
+    $\vec{w}$ in the image space of $A$.
+2.  Given two vectors in the image space of A, $\vec{w_1}$ and
+    $\vec{w_2}$, $\vec{w_1}\cdot\vec{w_2}=\vec{w_1}^T\;\vec{w_2}$. This
+    implies that
+    $(A \vec{w})^T(\vec{b}-A \vec{v}) = 0 \Rightarrow \vec{w}^T A^T(\vec{b}-A \vec{v}) = 0$.
+3.  Given any vector $\vec{w}$ in the image space of $A$ such that
+    $\vec{w} \cdot \vec{w'} = 0$ for **all** $\vec{w'}$, it is implied
+    that$\vec{w'} = \vec{w} = 0 \Rightarrow \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0 \Rightarrow (A^TA)\vec{v} = A^T \vec{b}$.
+    **CBT, CHECK MATH THEORY HERE**
+
+Thus, the ***normal equation*** to be used is defined as
+$(A^TA) \vec{v} = A^T \vec{b}$. This equation can be utilized to the
+find the vector $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$.
+
+## 3B. Application Methods
