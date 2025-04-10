@@ -3,6 +3,7 @@ import pandas as pd
 import datetime as dt
 import plotly.graph_objects as go
 
+
 def load_stock_data(file_path):
     """
     Load CSV with columns: Date, High, Low, Adj Close.
