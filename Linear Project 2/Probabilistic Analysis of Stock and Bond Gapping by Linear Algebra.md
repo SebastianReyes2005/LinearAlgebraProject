@@ -276,3 +276,5 @@ This displayed multiple key findings.
 3.  $P(2+3) > P(1+4)$. This is logical due to stocks and bonds
     historically being negatively correlated. As such, it is natural
     that divergence is more likely than convergence.
+
+# Least-Squares Approximation: Application
