@@ -15,18 +15,20 @@ This project analyzes stock and bond behavior via data from the SPDR S&P
 500 ETF Trust (SPY) and the iShares 20+ Year Treasury Bond ETF (TLT),
 respectively. We utilized data ranging from December 2004 to April 2025.
 
-There were two main questions this project hoped to investigate.
-Firstly, we aimed to learn whether Markov chains may be used to model
-short term and/or long-term stock market behavior. Secondly, we aimed to
-learn whether fitting a polynomial via least-squares approximation to
-stock market data could provide insights into behavior not observable
-from raw data.
-
 At its core, our project researched overnight movements in the stock
 market, in which a given stock's price when the market opens is higher
 or lower than its previous closing price. We chose to investigate the
 relationship between overnight movement in the SPY index and the TLT
 index.
+
+There were two main questions this project hoped to investigate.
+Firstly, we aimed to learn whether Markov chains may be used to model
+long-term stock market behavior. Secondly, we aimed to learn whether
+fitting a polynomial via least-squares approximation to stock market
+data could be used to provide insights on overnight price movements over
+a set interval of time.
+
+**NEED TO CITE WHERE WE GOT THE DATA FROM**
 
 # Markov Chains: Introduction
 
