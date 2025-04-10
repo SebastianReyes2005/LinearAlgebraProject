@@ -66,9 +66,9 @@ P =
 $$
 
 Any column of a probability matrix may also be isolated to form a
-***state vector*** $\overrightarrow{s}$ of dimension $n$. The
-probabilities of each state at a stage $m$ can be found by raising each
-component of the vector to the power of $m$. $$
+***state vector*** $\vec{s}$ of dimension $n$. The probabilities of each
+state at a stage $m$ can be found by raising each component of the
+vector to the power of $m$. $$
 \vec{s}^{(m)} = 
 \begin{bmatrix}
 s_1^{m} \\
@@ -76,11 +76,10 @@ s_1^{m} \\
 s_n^{m}
 \end{bmatrix}
 $$ This new vector is known as the ***m***$^{th}$ state vector.
-Accordingly, raising $\overrightarrow{s}$ to the power of 0 will result
-in the ***initial state vector***. State vectors may also be used to
+Accordingly, raising $\vec{s}$ to the power of 0 will result in the
+***initial state vector***. State vectors may also be used to
 investigate the long-term behavior of a system. This can be done by
-finding the vector $\overrightarrow{s}^{(m)}$ as $m$ approaches
-infinity. $$
+finding the vector $\vec{s}^{(m)}$ as $m$ approaches infinity. $$
 \lim_{m \to \infty} \vec{s}^{(m)} = \vec{s}
 $$ This results in what is known as a ***steady-state vector***. This
 steady-state vector may be found via the formula shown below, where $I$
@@ -154,21 +153,18 @@ leaves us with the goal of minimizing the quantity
 $\left\| A\vec{v} - \vec{b} \right\|^2$. Knowing this, the establishment
 of three main facts must be established prior to continuing:
 
-1.  If $\overrightarrow{v}$ minimizes
-    $\left\| A\vec{v} - \vec{b} \right\|^2$,
-    $\overrightarrow{b}-A\overrightarrow{v}$ is normal to every vector
-    in $im(A)$
-    $\Rightarrow (A \overrightarrow{w}) \cdot (\overrightarrow{b} - A \overrightarrow{v}) = 0$.
-2.  Given two vectors $\overrightarrow{w_1}$ and $\overrightarrow{w_2}$,
-    $\overrightarrow{w_1}\cdot\overrightarrow{w_2}=\overrightarrow{w_1^T}\;\overrightarrow{w_2} \Rightarrow (A \overrightarrow{w})^T(\overrightarrow{b}-A \overrightarrow{v}) = 0 \Rightarrow \overrightarrow{w^T} A^T(\overrightarrow{b}-A \overrightarrow{v}) = 0$.
-3.  Given a $\overrightarrow{w}$ such that
-    $\overrightarrow{w} \cdot \overrightarrow{w'} = 0$ for **all**
-    $\overrightarrow{w'}$,
-    $\Rightarrow \overrightarrow{w'} = \overrightarrow{w} = 0 \Rightarrow \overrightarrow{w} \cdot (A^T(\overrightarrow{b} - A \overrightarrow{v}) = 0$
+1.  If $\vec{v}$ minimizes $\left\| A\vec{v} - \vec{b} \right\|^2$,
+    $\vec{b}-A\vec{v}$ is normal to every vector in $im(A)$
+    $\Rightarrow (A \vec{w}) \cdot (\vec{b} - A \vec{v}) = 0$.
+2.  Given two vectors $\vec{w_1}$ and $\vec{w_2}$,
+    $\vec{w_1}\cdot\vec{w_2}=\vec{w_1}^T\;\vec{w_2} \Rightarrow (A \vec{w})^T(\vec{b}-A \vec{v}) = 0 \Rightarrow \vec{w^T} A^T(\vec{b}-A \vec{v}) = 0$.
+3.  Given a $\vec{w}$ such that $\vec{w} \cdot \vec{w'} = 0$ for **all**
+    $\vec{w'}$,
+    $\Rightarrow \vec{w'} = \vec{w} = 0 \Rightarrow \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0$
     **UNSURE, CHECK MATH THEORY HERE**
 
 Thus, the ***normal equation*** to be used is defined as
-$(A^TA) \overrightarrow{v} = A^T \overrightarrow{b}$.
+$(A^TA) \vec{v} = A^T \vec{b}$.
 
 # Markov Chains: Application
 
@@ -281,7 +277,7 @@ $$
 **Figure 7:**
 
 $$
-\overrightarrow{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
+\vec{s} = \begin{bmatrix}0.2050 \\0.3152 \\0.2980 \\0.1817\end{bmatrix}
 $$
 
 This displayed multiple key findings.
