@@ -137,12 +137,6 @@ print(long_run)
 
             
 
-# trade_df = gap_df[(gap_df['Stock Gap'] >= 0) &
-#                   ((gap_df['TLT Gap']  >= 0) | (gap_df['TLT Gap'].isna()))]
-
-
-# # trade_df = gap_df[(gap_df['Stock Gap'] <= -3.0)]
-
 # # print(gap_df.to_string(index=True))
 # print(trade_df.to_string(index=True))
 
