@@ -24,9 +24,9 @@ index.
 There were two main questions this project hoped to investigate.
 Firstly, we aimed to learn whether Markov chains may be used to model
 long-term stock market behavior. Secondly, we aimed to learn whether
-fitting a polynomial via least-squares approximation to stock market
-data could be used to provide insights on overnight price movements over
-a set interval of time.
+fitting a polynomial via least-squares approximation could provide
+insights on the overnight price movements of SPY over a set interval of
+time.
 
 **CBT, NEED TO CITE WHERE WE GOT THE DATA FROM**
 
@@ -291,10 +291,10 @@ of three main facts must be established prior to continuing:
 2.  Given two vectors in the image space of A, $\vec{w_1}$ and
     $\vec{w_2}$, $\vec{w_1}\cdot\vec{w_2}=\vec{w_1}^T\;\vec{w_2}$. This
     implies that
-    $(A \vec{w})^T(\vec{b}-A \vec{v}) = 0 \Rightarrow \vec{w}^T A^T(\vec{b}-A \vec{v}) = 0$.
+    $(A \vec{w})^T(\vec{b}-A \vec{v}) = 0 \implies \vec{w}^T A^T(\vec{b}-A \vec{v}) = 0$.
 3.  Given any vector $\vec{w}$ in the image space of $A$ such that
     $\vec{w} \cdot \vec{w'} = 0$ for **all** $\vec{w'}$, it is implied
-    that$\vec{w'} = \vec{w} = 0 \Rightarrow \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0 \Rightarrow (A^TA)\vec{v} = A^T \vec{b}$.
+    that$\vec{w'} = \vec{w} = 0 \implies \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0 \implies (A^TA)\vec{v} = A^T \vec{b}$.
     **CBT, CHECK MATH THEORY HERE**
 
 Thus, the ***normal equation*** to be used is defined as
@@ -302,3 +302,12 @@ $(A^TA) \vec{v} = A^T \vec{b}$. This equation can be utilized to the
 find the vector $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$.
 
 ## 3B. Application Methods
+
+We utilized Python to extracted the overnight movement data for the
+first 30 days of our SPY dataset, starting at December 2nd, 2004. We
+then smoothed this data through the use of moving averages. That is, we
+created a new string of data, $x$, such that a given entry $x_i$ would
+be equal to the average of datapoints $i$ through $i+20$. In this
+manner, entry $x_1$ would be equivalent to the average overnight
+movement of SPY between the 1st and 21st days included in our dataset.
+In other words, $x_i = \sum\limits_{i}^{i+20}{(SPY \; Data)_i}$.

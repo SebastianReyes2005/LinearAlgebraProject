@@ -172,10 +172,13 @@ raw = np.zeros((40, 1), dtype=float)
 for i in range(40):
     raw[i, 0] = gap_df.loc[i + 1, 'Stock Gap']
 
+
 # Step 2: Compute moving average (days 1–20, 2–21, ..., 21–40)
 x = np.zeros((10, 1), dtype=float)
 for i in range(10):
     x[i, 0] = np.average(raw[i:i + 20, 0])
+
+
 
 # Step 3: Set polynomial degree
 degree = 9  # should be <= len(x) - 1 for best fit
