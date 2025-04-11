@@ -83,10 +83,6 @@ def get_state(row, df):
 
 
 
-
-
-    
-
 a = np.zeros((4, 4), dtype=float)
 
 for m in range(1, len(gap_data)):
