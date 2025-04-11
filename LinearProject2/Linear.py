@@ -178,6 +178,9 @@ x = np.zeros((10, 1), dtype=float)
 for i in range(10):
     x[i, 0] = np.average(raw[i:i + 20, 0])
 
+print("We get average values (x):")
+print(x)
+
 # Step 3: Set polynomial degree
 degree = 9  # should be <= len(x) - 1 for best fit
 

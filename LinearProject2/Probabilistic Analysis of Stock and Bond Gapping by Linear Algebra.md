@@ -5,7 +5,7 @@ editor_options:
 output: pdf_document
 ---
 
-# Probabilistic Analysis of Stock and Bond Overnight Movement by Linear Algebra
+# The Market That Never Sleeps: Probabilistic Analysis of Stock and Bond Overnight Movements via Linear Algebra
 
 **By Sam Lu and Sebastian Reyes**
 
@@ -307,20 +307,48 @@ We utilized Python to extracted the overnight movement data for the
 first 30 days of our SPY dataset, starting at December 2nd, 2004. We
 then smoothed this data through the use of moving averages. That is, we
 created a new string of data, $x$, such that a given entry $x_i$ would
-be equal to the average of datapoints $i$ through $i+20$. In this
+be equal to the average of data points $i$ through $i+20$. In this
 manner, entry $x_1$ would be equivalent to the average overnight
 movement of SPY between the 1st and 21st days included in our dataset.
-In other words, $x_i = \sum\limits_{i}^{i+20}{(SPY \; Data)_i}$.
+In other words, $x_i = \sum\limits_{i}^{i+20}{(SPY \; Data)_i}$. The
+resulting 10 data points are displayed in **Figure 8**. Note that in
+this case, $x$ was more of an index regarding a given time period's
+average (i.e. $x=1 \implies$ $y =$ average of first 20 overnight price
+movement data points), as opposed to a value with in-context meaning.
+
+**CBT, NOMENCLATURE REGARDING MOVING AVERAGES AND THEIR RELATIONSHIP W/
+LABELING INDIVIDUAL DAYS**
+
+**Figure 8:**
+
+$$
+\begin{array}{|c|c|c|}
+\hline
+\textbf{x} & \textbf{Date Period} & \textbf{Average Overnight Movement (y)} \\
+\hline
+1 & 2004\text{-}12\text{-}22 \text{ to } 2005\text{-}01\text{-}11 & -0.041002 \\
+2 & 2004\text{-}12\text{-}23 \text{ to } 2005\text{-}01\text{-}12 & -0.028533 \\
+3 & 2004\text{-}12\text{-}24 \text{ to } 2005\text{-}01\text{-}13 & \phantom{-}0.000847 \\
+4 & 2004\text{-}12\text{-}25 \text{ to } 2005\text{-}01\text{-}14 & \phantom{-}0.009175 \\
+5 & 2004\text{-}12\text{-}26 \text{ to } 2005\text{-}01\text{-}15 & -0.006357 \\
+6 & 2004\text{-}12\text{-}27 \text{ to } 2005\text{-}01\text{-}16 & \phantom{-}0.007206 \\
+7 & 2004\text{-}12\text{-}28 \text{ to } 2005\text{-}01\text{-}17 & \phantom{-}0.049741 \\
+8 & 2004\text{-}12\text{-}29 \text{ to } 2005\text{-}01\text{-}18 & \phantom{-}0.057683 \\
+9 & 2004\text{-}12\text{-}30 \text{ to } 2005\text{-}01\text{-}19 & \phantom{-}0.024539 \\
+10 & 2004\text{-}12\text{-}31 \text{ to } 2005\text{-}01\text{-}20 & \phantom{-}0.041740 \\
+\hline
+\end{array}
+$$
 
 Following this, we opted to fit a 9-degree polynomial rather than a line
 $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} slope \\ intercept \end{bmatrix}$
 . This would result in the polynomial being represented by the vector in
 **Figure 8**, where each entry $c_i$ is the coefficient of the term in
 the polynomial $x^i$. In other words, the polynomial represented by
-**Figure 8** would follow the form of
+**Figure 9** would follow the form of
 $y = c_0 + c_1x + c_2x^2 ... c_9x^9$.
 
-**Figure 8**:
+**Figure 9**:
 
 $$
 \vec{v} =
@@ -334,9 +362,9 @@ c_9
 $$
 
 Following this, we created a Vandermonde matrix $M$, whose general form
-is displayed in **Figure 9**.
+is displayed in **Figure 10**.
 
-**Figure 9:**
+**Figure 10:**
 
 $$
 M =
@@ -353,12 +381,10 @@ matrix
 $A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$
 that would be generated when fitting a line. Each row of the Vandermonde
 matrix still corresponded to one point, with each column corresponding
-to a power of $x$, which our case, was the index of a given time
-period's average (i.e. $x=1 \implies$ average of first 20 overnight
-price movement datapoints). Applying this model to our datapoints using
-Python, we received the output displayed in **Figure 10**.
+to a power of $x$. Applying this model to our data point using Python,
+we received the output displayed in **Figure 11**.
 
-**Figure 10:**
+**Figure 11:**
 
 $$
 M =\begin{bmatrix}
@@ -376,9 +402,9 @@ M =\begin{bmatrix}
 $$
 
 We then utilized Python to calculate $M^T$, as displayed in **Figure
-11**.
+12**.
 
-**Figure 11:**
+**Figure 12:**
 
 $$
 M^T =
@@ -396,6 +422,99 @@ M^T =
 $$
 
 Following this, we then used Python once again to calculate $M^TM$, as
-displayed in **Figure 12**
+displayed in **Figure 13.**
 
-**Figure 12:**
+**Figure 13:**
+
+$$
+M^T M =
+\begin{bmatrix}
+1.0 \times 10^1 & 5.5 \times 10^1 & 3.9 \times 10^2 & 3.0 \times 10^3 & 2.5 \times 10^4 & 2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 \\
+5.5 \times 10^1 & 3.9 \times 10^2 & 3.0 \times 10^3 & 2.5 \times 10^4 & 2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 \\
+3.9 \times 10^2 & 3.0 \times 10^3 & 2.5 \times 10^4 & 2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} \\
+3.0 \times 10^3 & 2.5 \times 10^4 & 2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} \\
+2.5 \times 10^4 & 2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} & 1.4 \times 10^{12} \\
+2.2 \times 10^5 & 2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} & 1.4 \times 10^{12} & 1.3 \times 10^{13} \\
+2.0 \times 10^6 & 1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} & 1.4 \times 10^{12} & 1.3 \times 10^{13} & 1.3 \times 10^{14} \\
+1.8 \times 10^7 & 1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} & 1.4 \times 10^{12} & 1.3 \times 10^{13} & 1.3 \times 10^{14} & 1.2 \times 10^{15} \\
+1.7 \times 10^8 & 1.6 \times 10^9 & 1.5 \times 10^{10} & 1.4 \times 10^{11} & 1.4 \times 10^{12} & 1.3 \times 10^{13} & 1.3 \times 10^{14} & 1.2 \times 10^{15} & 1.2 \times 10^{16} \\
+\end{bmatrix}
+$$
+
+We found the inverse of matrix $M^TM$, as shown in **Figure 14**.
+
+We substituted $M$ and $M^T$ in the equation $(A^TA)\vec{v}=A^T \vec{b}$
+to obtain the formula $(M^TM)\vec{v}=M^T \vec{b}$. Utilizing the
+recently calculated matrix $(M^TM)^{-1}$, we were then able to solve for
+$\vec{b}$ using the
+formula$(M^TM)^{-1}(M^TM)\vec{v}=(M^TM)^{-1}M^T\vec{b}$, or
+$\vec{v} = (M^TM)^{-1}M^T\vec{b}$ . The resulting vector $\vec{v}$ is
+displayed in **Figure 14.**
+
+**Figure 14:**
+
+$$
+\vec{v} =
+\begin{bmatrix}
+-5.7953 \times 10^{-1} \\
+\phantom{-}1.4424 \times 10^{0} \\
+-1.5139 \times 10^{0} \\
+\phantom{-}8.1931 \times 10^{-1} \\
+-2.4904 \times 10^{-1} \\
+\phantom{-}4.4040 \times 10^{-2} \\
+-4.4831 \times 10^{-3} \\
+\phantom{-}2.4316 \times 10^{-4} \\
+-5.4368 \times 10^{-6} \\
+\end{bmatrix}
+$$
+
+Plugging these coefficients into our previously established polynomial
+of form $y = c_0 + c_1x + c_2x^2 ... c_9x^9$, we were left with the
+equation below.
+
+**Figure 15:**
+
+$$
+f(x) =
+-0.5795
++ 1.4424x
+- 1.5139x^2
++ 0.8193x^3
+- 0.2490x^4
++ 0.0440x^5 \\[6pt]
+- 0.0045x^6
++ 0.0002432x^7
+- 0.000005437x^8
+$$
+
+Finally, using Python one more time, we were able to use this polynomial
+to approximate the values of each value of $x$, as displayed in **Figure
+16** and plotted in **Figure 17**.
+
+**CBT, UNSURE ABOUT WHETHER APPROPRIATE TO LABEL DAYS AS 1-10, OR KEEP X
+AS INDEX VALUES**
+
+**Figure 16:**
+
+$$
+\begin{array}{|c|c|c|}
+\hline
+\textbf{x} & \textbf{Original} & \textbf{Fitted} \\
+\hline
+1 & -0.041002 & -0.040999 \\
+2 & -0.028534 & -0.028522 \\
+3 & \phantom{-}0.000848 & \phantom{-}0.000815 \\
+4 & \phantom{-}0.009175 & \phantom{-}0.009258 \\
+5 & -0.006356 & -0.006479 \\
+6 & \phantom{-}0.007206 & \phantom{-}0.007330 \\
+7 & \phantom{-}0.049740 & \phantom{-}0.049659 \\
+8 & \phantom{-}0.057683 & \phantom{-}0.057718 \\
+9 & \phantom{-}0.024539 & \phantom{-}0.024531 \\
+10 & \phantom{-}0.041740 & \phantom{-}0.041742 \\
+\hline
+\end{array}
+$$
+
+**Figure 17:**
+
+![](images/clipboard-877262027.png)
