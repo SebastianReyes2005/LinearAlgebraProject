@@ -336,6 +336,8 @@ $$
 Following this, we created a Vandermonde matrix $M$, whose general form
 is displayed in **Figure 9**.
 
+**Figure 9:**
+
 $$
 M =
 \begin{bmatrix}
@@ -351,7 +353,12 @@ matrix
 $A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$
 that would be generated when fitting a line. Each row of the Vandermonde
 matrix still corresponded to one point, with each column corresponding
-to a power of $x$.
+to a power of $x$, which our case, was the index of a given time
+period's average (i.e. $x=1 \implies$ average of first 20 overnight
+price movement datapoints). Applying this model to our datapoints using
+Python, we received the output displayed in **Figure 10**.
+
+**Figure 10:**
 
 $$
 M =\begin{bmatrix}
@@ -367,3 +374,28 @@ M =\begin{bmatrix}
 1 & 10 & 100 & 1000 & 10000 & 100000 & 1000000 & 10000000 & 100000000 \\
 \end{bmatrix}
 $$
+
+We then utilized Python to calculate $M^T$, as displayed in **Figure
+11**.
+
+**Figure 11:**
+
+$$
+M^T =
+\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+1 & 4 & 9 & 16 & 25 & 36 & 49 & 64 & 81 & 100 \\
+1 & 8 & 27 & 64 & 125 & 216 & 343 & 512 & 729 & 1000 \\
+1 & 16 & 81 & 256 & 625 & 1296 & 2401 & 4096 & 6561 & 10000 \\
+1 & 32 & 243 & 1024 & 3125 & 7776 & 16807 & 32768 & 59049 & 100000 \\
+1 & 64 & 729 & 4096 & 15625 & 46656 & 117649 & 262144 & 531441 & 1000000 \\
+1 & 128 & 2187 & 16384 & 78125 & 279936 & 823543 & 2097152 & 4782969 & 10000000 \\
+1 & 256 & 6561 & 65536 & 390625 & 1679616 & 5764801 & 16777216 & 43046721 & 100000000 \\
+\end{bmatrix}
+$$
+
+Following this, we then used Python once again to calculate $M^TM$, as
+displayed in **Figure 12**
+
+**Figure 12:**

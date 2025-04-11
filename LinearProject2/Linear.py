@@ -178,8 +178,6 @@ x = np.zeros((10, 1), dtype=float)
 for i in range(10):
     x[i, 0] = np.average(raw[i:i + 20, 0])
 
-
-
 # Step 3: Set polynomial degree
 degree = 9  # should be <= len(x) - 1 for best fit
 
@@ -188,14 +186,15 @@ m = np.zeros((len(x), degree), dtype=float)
 for column in range(degree):
     for row in range(len(x)):
         m[row, column] = (row + 1) ** column
-print("\nWe get M of dimension")
+print("\nWe get M of dimensions")
 print(m.shape)
 print(round_matrix_sf(m,5))
 
 
 # Step 5: Solve for polynomial coefficients Z using least squares
-print("\nWe get M^T")
+print("\nWe get M^T of dimensions")
 m_T = m.T
+print(m_T.shape)
 print(round_matrix_sf(m_T,5))
 print("\nWe get (M^T)M")
 m_T_m = np.matmul(m_T, m)
