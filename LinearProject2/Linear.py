@@ -168,8 +168,8 @@ def round_sf(x, sf):
   return round(x * factor) / factor
 
 # Step 1: Extract 'Stock Gap' values into a raw array
-raw = np.zeros((40, 1), dtype=float)
-for i in range(40):
+raw = np.zeros((30, 1), dtype=float)
+for i in range(30):
     raw[i, 0] = gap_df.loc[i + 1, 'Stock Gap']
 
 
