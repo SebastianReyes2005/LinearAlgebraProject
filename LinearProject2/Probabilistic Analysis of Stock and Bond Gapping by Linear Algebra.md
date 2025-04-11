@@ -340,7 +340,7 @@ $$
 \end{array}
 $$
 
-Following this, we opted to fit a 9-degree polynomial rather than a line
+Following this, we opted to fit a 9-degree polynomial, as it is the maximum number of degrees we can fit over a 10-point dataset, rather than a line
 $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} slope \\ intercept \end{bmatrix}$
 . This would result in the polynomial being represented by the vector in
 **Figure 8**, where each entry $c_i$ is the coefficient of the term in
