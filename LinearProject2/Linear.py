@@ -188,8 +188,10 @@ m = np.zeros((len(x), degree), dtype=float)
 for column in range(degree):
     for row in range(len(x)):
         m[row, column] = (row + 1) ** column
-print("\nWe get M")
+print("\nWe get M of dimension")
+print(m.shape)
 print(round_matrix_sf(m,5))
+
 
 # Step 5: Solve for polynomial coefficients Z using least squares
 print("\nWe get M^T")

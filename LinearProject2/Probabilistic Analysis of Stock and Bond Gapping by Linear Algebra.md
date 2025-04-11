@@ -311,3 +311,59 @@ be equal to the average of datapoints $i$ through $i+20$. In this
 manner, entry $x_1$ would be equivalent to the average overnight
 movement of SPY between the 1st and 21st days included in our dataset.
 In other words, $x_i = \sum\limits_{i}^{i+20}{(SPY \; Data)_i}$.
+
+Following this, we opted to fit a 9-degree polynomial rather than a line
+$\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} slope \\ intercept \end{bmatrix}$
+. This would result in the polynomial being represented by the vector in
+**Figure 8**, where each entry $c_i$ is the coefficient of the term in
+the polynomial $x^i$. In other words, the polynomial represented by
+**Figure 8** would follow the form of
+$y = c_0 + c_1x + c_2x^2 ... c_9x^9$.
+
+**Figure 8**:
+
+$$
+\vec{v} =
+\begin{bmatrix}
+c_0 \\
+c_1 \\
+c_2 \\
+\vdots \\
+c_9
+\end{bmatrix}
+$$
+
+Following this, we created a Vandermonde matrix $M$, whose general form
+is displayed in **Figure 9**.
+
+$$
+M =
+\begin{bmatrix}
+1 & x_1 & x_1^2 & x_1^3 & \cdots & x_1^d \\
+1 & x_2 & x_2^2 & x_2^3 & \cdots & x_2^d \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & x_n^3 & \cdots & x_n^d \\
+\end{bmatrix}
+$$
+
+For calculation purposes, this matrix $M$ worked very similarly to the
+matrix
+$A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$
+that would be generated when fitting a line. Each row of the Vandermonde
+matrix still corresponded to one point, with each column corresponding
+to a power of $x$.
+
+$$
+M =\begin{bmatrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & 2 & 4 & 8 & 16 & 32 & 64 & 128 & 256 \\
+1 & 3 & 9 & 27 & 81 & 243 & 729 & 2187 & 6561 \\
+1 & 4 & 16 & 64 & 256 & 1024 & 4096 & 16384 & 65536 \\
+1 & 5 & 25 & 125 & 625 & 3125 & 15625 & 78125 & 390625 \\
+1 & 6 & 36 & 216 & 1296 & 7776 & 46656 & 279936 & 1679616 \\
+1 & 7 & 49 & 343 & 2401 & 16807 & 117649 & 823543 & 5764801 \\
+1 & 8 & 64 & 512 & 4096 & 32768 & 262144 & 2097152 & 16777216 \\
+1 & 9 & 81 & 729 & 6561 & 59049 & 531441 & 4782969 & 43046721 \\
+1 & 10 & 100 & 1000 & 10000 & 100000 & 1000000 & 10000000 & 100000000 \\
+\end{bmatrix}
+$$
