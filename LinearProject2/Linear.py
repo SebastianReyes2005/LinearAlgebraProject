@@ -135,39 +135,26 @@ print("Long-run Transition Matrix:")
 print(long_run)
 
 
-            
 
-# # print(gap_df.to_string(index=True))
-# print(trade_df.to_string(index=True))
 
 def round_matrix_sf(matrix, sf):
-  """Rounds all elements in a matrix to a specified number of significant figures.
-
-  Args:
-    matrix: A NumPy array representing the matrix.
-    sf: The number of significant figures to round to.
-
-  Returns:
-    A new NumPy array with the rounded values.
-  """
   rounded_matrix = np.array([[round_sf(element, sf) for element in row] for row in matrix])
   return rounded_matrix
 
 def round_sf(x, sf):
-  """Rounds a single number to a specified number of significant figures."""
   if x == 0:
     return 0
   magnitude = np.floor(np.log10(abs(x)))
   factor = 10**(sf - 1 - magnitude)
   return round(x * factor) / factor
 
-# Step 1: Extract 'Stock Gap' values into a raw array
+# Extract 'Stock Gap' values into a raw array
 raw = np.zeros((30, 1), dtype=float)
 for i in range(30):
     raw[i, 0] = gap_df.loc[i + 1, 'Stock Gap']
 
 
-# Step 2: Compute moving average (days 1–20, 2–21, ..., 21–40)
+# 20 MA (days 1–20, 2–21, ..., 10-29)
 x = np.zeros((10, 1), dtype=float)
 for i in range(10):
     x[i, 0] = np.average(raw[i:i + 20, 0])
@@ -175,10 +162,9 @@ for i in range(10):
 print("We get average values (x):")
 print(x)
 
-# Step 3: Set polynomial degree
-degree = 9  # should be <= len(x) - 1 for best fit
+# Matrix M for polynomial fitting, 9 degree poly
+degree = 9  # len(x) - 1 for best fit
 
-# Step 4: Construct matrix M for polynomial fitting
 m = np.zeros((len(x), degree), dtype=float)
 for column in range(degree):
     for row in range(len(x)):
@@ -188,7 +174,7 @@ print(m.shape)
 print(round_matrix_sf(m,5))
 
 
-# Step 5: Solve for polynomial coefficients Z using least squares
+# Solve for polynomial coefficients Z using least squares
 print("\nWe get M^T of dimensions")
 m_T = m.T
 print(m_T.shape)
@@ -200,7 +186,7 @@ print("\nWe get Z=(((M^T)M)^-1)X")
 z = np.matmul(np.matmul(np.linalg.inv(m_T_m), m_T), x)
 print(round_matrix_sf(z,5))
 
-# Step 6: Reconstruct fitted values (in-sample check)
+# Show estimation in-sample check
 print("\n--- Reconstructed Values vs Original x ---")
 result = []
 for day in range(len(x)):
