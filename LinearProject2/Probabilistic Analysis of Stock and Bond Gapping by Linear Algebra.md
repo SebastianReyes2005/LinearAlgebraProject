@@ -13,7 +13,8 @@ output: pdf_document
 
 This project analyzes stock and bond behavior via data from the SPDR S&P
 500 ETF Trust (SPY) and the iShares 20+ Year Treasury Bond ETF (TLT),
-respectively. We utilized data ranging from December 2004 to April 2025.
+respectively. We utilized data ranging from December 2004 to April 2025, using 
+Yahoo Finance's Historical Performance feature for SPY and TLT.[^1]
 
 At its core, our project researched overnight movements in the stock
 market, in which a given stock's price when the market opens is higher
@@ -28,7 +29,7 @@ fitting a polynomial via least-squares approximation could provide
 insights on the overnight price movements of SPY over a set interval of
 time.
 
-**CBT, NEED TO CITE WHERE WE GOT THE DATA FROM**
+[^1]: Data retrieved from Yahoo Finance - SPY Historical Data (https://finance.yahoo.com/quote/SPY/history/) and Yahoo Finance - TLT Historical Data (https://finance.yahoo.com/quote/TLT/history/) (accessed April 11, 2025).
 
 # 2. Markov Chains
 
@@ -211,18 +212,18 @@ $$
 
 The steady-state vector found provided three primary insights.
 
-1.  $P(1+2) > P(3+4)$. That is, it is more likely that overnight stock
+1.  $\vec{s}_{1,1} + \vec{s}_{2,1}> \vec{s}_{3,1} + \vec{s}_{4,1}$. That is, it is more likely that overnight stock
     movement will be positive rather than negative. This is intuitive,
     as stocks tend to rise.
-2.  $P(1+3) \approx P(2+4)$. Once more, this is to be expected, as
+2.  $\vec{s}_{1,1} + \vec{s}_{3,1} \approx \vec{s}_{2,1} + \vec{s}_{4,1}$. Once more, this is to be expected, as
     20-year bonds are usually constant/steady.
-3.  $P(2+3) > P(1+4)$. This is logical due to stocks and bonds
-    historically being negatively correlated. As such, it is natural
+3.  $\vec{s}_{2,1} + \vec{s}_{3,1} > \vec{s}_{1,1} + \vec{s}_{4,1}$. This is logical due to stocks and bonds'
+    historically low correlation. As such, it is natural
     that divergence is more likely than convergence.
 
 # 3. Least-Squares Approximation
 
-## 3A. Background
+## 3A. Background (Linear Regression)
 
 ***Least-Squares Approximation***, per our class, is defined as a method
 to fit a line through a set of data points by minimizing the sum of the
@@ -241,50 +242,46 @@ $$
 s =
 \left\| 
 \begin{bmatrix}
-ax_1 + b \\
-\vdots \\
-ax_n + b
-\end{bmatrix}
--
-\begin{bmatrix}
 y_1 \\
 \vdots \\
 y_n
+\end{bmatrix}
+-
+\begin{bmatrix}
+b + ax_1  \\
+\vdots \\
+b + ax_n
 \end{bmatrix}
 \right\|^2
-$$
-
-This implies that the below value is to be minimized.
-
-$$
+=
 \left\|
-\begin{bmatrix}
-x_1 & 1 \\
-\vdots & \vdots \\
-x_n & 1
-\end{bmatrix}
-\begin{bmatrix}
-a \\
-b
-\end{bmatrix}
--
 \begin{bmatrix}
 y_1 \\
 \vdots \\
 y_n
+\end{bmatrix}
+-
+\begin{bmatrix}
+1 & x_1 \\
+\vdots & \vdots \\
+1 & x_n
+\end{bmatrix}
+\begin{bmatrix}
+b \\
+a
 \end{bmatrix}
 \right\|^2
 $$
 
 Defining
-$A = \begin{bmatrix} x_1 & 1 \\ \vdots & \vdots \\ x_n & 1 \end{bmatrix}$,
-$\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$, and
+$A = \begin{bmatrix} 1 & x_1 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix}$,
+$\vec{v} = \begin{bmatrix} b \\ a \end{bmatrix}$, and
 $\vec{b} = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}$, this
 leaves us with the goal of minimizing the quantity
-$\left\| A\vec{v} - \vec{b} \right\|^2$. Knowing this, the establishment
+$\left\|\vec{b} - A\vec{v}\right\|^2$. Knowing this, the establishment
 of three main facts must be established prior to continuing:
 
-1.  If $\vec{v}$ minimizes $\left\| A\vec{v} - \vec{b} \right\|^2$,
+1.  If $\vec{v}$ minimizes $\left\| \vec{b} - A\vec{v} \right\|^2$,
     $\vec{b}-A\vec{v}$ is normal to every vector in $im(A)$. This
     implies that$(A \vec{w}) \cdot (\vec{b} - A \vec{v}) = 0$, for any
     $\vec{w}$ in the image space of $A$.
@@ -295,13 +292,51 @@ of three main facts must be established prior to continuing:
 3.  Given any vector $\vec{w}$ in the image space of $A$ such that
     $\vec{w} \cdot \vec{w'} = 0$ for **all** $\vec{w'}$, it is implied
     that$\vec{w'} = \vec{w} = 0 \implies \vec{w} \cdot (A^T(\vec{b} - A \vec{v}) = 0 \implies (A^TA)\vec{v} = A^T \vec{b}$.
-    **CBT, CHECK MATH THEORY HERE**
 
 Thus, the ***normal equation*** to be used is defined as
 $(A^TA) \vec{v} = A^T \vec{b}$. This equation can be utilized to the
 find the vector $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$.
 
-## 3B. Application Methods
+## 3B. Background (Polynomial Regression)
+
+In this project, we are going to least-squares approximate a polynomial, and the method is given by Theorem 5.6.3 in the textbook.
+
+We have \( n \) data pairs \( (x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n) \), and write
+
+$$
+\mathbf{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}, \quad
+M = \begin{bmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^m \\
+1 & x_2 & x_2^2 & \cdots & x_2^m \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^m
+\end{bmatrix}, \quad
+\mathbf{z} = \begin{bmatrix}
+z_0 \\ z_1 \\ \vdots \\ z_m
+\end{bmatrix}
+$$
+
+1. If \( \mathbf{z} \) is any solution to the normal equations
+
+$$
+(M^T M)\mathbf{z} = M^T \mathbf{y}
+$$
+
+then the polynomial
+
+$$
+z_0 + z_1 x + z_2 x^2 + \cdots + z_m x^m
+$$
+
+is a least squares approximating polynomial of degree \( m \) for the given data pairs.
+
+2. If at least \( m+1 \) of the numbers \( x_1, x_2, \ldots, x_n \) are distinct (so \( n \geq m+1 \)), the matrix \( M^T M \) is invertible and \( \mathbf{z} \) is uniquely determined by
+
+$$
+\mathbf{z} = (M^T M)^{-1} M^T \mathbf{y}
+$$
+
+## 3C. Application Methods
 
 We utilized Python to extracted the overnight movement data for the
 first 30 days of our SPY dataset, starting at December 2nd, 2004. We
@@ -491,8 +526,6 @@ Finally, using Python one more time, we were able to use this polynomial
 to approximate the values of each value of $x$, as displayed in **Figure
 16** and plotted in **Figure 17**.
 
-**CBT, UNSURE ABOUT WHETHER APPROPRIATE TO LABEL DAYS AS 1-10, OR KEEP X
-AS INDEX VALUES**
 
 **Figure 16:**
 
