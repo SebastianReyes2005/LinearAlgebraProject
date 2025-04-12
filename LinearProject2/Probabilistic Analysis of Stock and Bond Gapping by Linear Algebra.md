@@ -362,9 +362,6 @@ this case, $x$ was more of an index regarding a given time period's
 average (i.e. $x=1 \implies$ $y =$ average of first 20 overnight price
 movement data points), as opposed to a value with in-context meaning.
 
-**CBT, NOMENCLATURE REGARDING MOVING AVERAGES AND THEIR RELATIONSHIP W/
-LABELING INDIVIDUAL DAYS**
-
 **Figure 8:**
 
 $$
@@ -568,3 +565,30 @@ $$
 **Figure 17:**
 
 ![](images/clipboard-1108162964.png)
+
+## 3D. Application Results
+
+The 9-degree polynomial produced revealed an excellent fit to our data,
+with the maximum relative error being only $3.89\%$, and all other
+points having a relative error of less than $2\%$. However, due to the
+high degree of the polynomial we fit, it is very possible that the model
+we created suffers from overfitting, and would not accurately model
+overnight SPY price movements outside of the time interval contained
+within our sample. While the use of overfitted models are common in the
+finance industry, they are often only impressive retrospectively, and it
+is very likely that our model would fail in live trading.
+
+Additionally, while the use of moving averages to smooth our data worked
+well for the purposes of fitting our model, it also masks some of the
+volatility present in SPY prices, once again weakening our model as a
+tool for live trading.
+
+To answer the question posed at the beginning of this project–whether
+fitting a polynomial via least-squares approximation could provide
+insights on the overnight price movements of SPY over a set interval of
+time–our polynomial did not reveal very much new information. It is very
+likely that this was due to the overfitting of our model limiting our
+ability to use large periods of data, as well as capturing too much
+noise to allow the visualization of broader trends.
+
+# 4. Conclusions
