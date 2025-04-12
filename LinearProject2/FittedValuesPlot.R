@@ -14,20 +14,26 @@ df <- data.frame(
 
 library(ggplot2)
 
+df$RelativeError <- abs(df$Original - df$Fitted) / abs(df$Original) * 100
+
+scale_factor <- max(abs(c(df$Original, df$Fitted))) / max(df$RelativeError)
+df$RelativeErrorScaled <- df$RelativeError * scale_factor
+
 ggplot(df, aes(x = Day)) +
   geom_line(aes(y = Original, color = "Original"), size = 1.2) +
   geom_point(aes(y = Original, color = "Original"), size = 2) +
   geom_line(aes(y = Fitted, color = "Fitted"), linetype = "dashed", size = 1.2) +
   geom_point(aes(y = Fitted, color = "Fitted"), shape = 1, size = 2.5) +
-  scale_color_manual(values = c("Original" = "steelblue", "Fitted" = "firebrick")) +
-  scale_x_continuous(
-    breaks = days,
-    labels = 1:10
+  geom_line(aes(y = RelativeErrorScaled, color = "Relative Error (%)"), linetype = "dotdash", size = 1.2) +
+  scale_color_manual(values = c("Original" = "steelblue", "Fitted" = "firebrick", "Relative Error (%)" = "darkgreen")) +
+  scale_x_continuous(breaks = days) +
+  scale_y_continuous(
+    name = "Overnight Movement",
+    sec.axis = sec_axis(~ . / scale_factor, name = "Relative Error (%)")
   ) +
   labs(
-    title = "Original vs Fitted Values",
+    title = "Original vs Fitted vs Relative Error",
     x = "Day",
-    y = "Overnight Movement",
     color = "Legend"
   ) +
   theme_minimal()

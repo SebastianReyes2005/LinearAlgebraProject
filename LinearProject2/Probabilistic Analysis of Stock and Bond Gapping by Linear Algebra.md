@@ -13,8 +13,14 @@ output: pdf_document
 
 This project analyzes stock and bond behavior via data from the SPDR S&P
 500 ETF Trust (SPY) and the iShares 20+ Year Treasury Bond ETF (TLT),
-respectively. We utilized data ranging from December 2004 to April 2025, using 
-Yahoo Finance's Historical Performance feature for SPY and TLT.[^1]
+respectively. We utilized data ranging from December 2004 to April 2025,
+using Yahoo Finance's Historical Performance feature for SPY and
+TLT.[^1]
+
+[^1]: Data retrieved from Yahoo Finance - SPY Historical Data
+    (<https://finance.yahoo.com/quote/SPY/history/>) and Yahoo Finance -
+    TLT Historical Data (<https://finance.yahoo.com/quote/TLT/history/>)
+    (accessed April 11, 2025).
 
 At its core, our project researched overnight movements in the stock
 market, in which a given stock's price when the market opens is higher
@@ -28,8 +34,6 @@ long-term stock market behavior. Secondly, we aimed to learn whether
 fitting a polynomial via least-squares approximation could provide
 insights on the overnight price movements of SPY over a set interval of
 time.
-
-[^1]: Data retrieved from Yahoo Finance - SPY Historical Data (https://finance.yahoo.com/quote/SPY/history/) and Yahoo Finance - TLT Historical Data (https://finance.yahoo.com/quote/TLT/history/) (accessed April 11, 2025).
 
 # 2. Markov Chains
 
@@ -212,14 +216,16 @@ $$
 
 The steady-state vector found provided three primary insights.
 
-1.  $\vec{s}_{1,1} + \vec{s}_{2,1}> \vec{s}_{3,1} + \vec{s}_{4,1}$. That is, it is more likely that overnight stock
-    movement will be positive rather than negative. This is intuitive,
-    as stocks tend to rise.
-2.  $\vec{s}_{1,1} + \vec{s}_{3,1} \approx \vec{s}_{2,1} + \vec{s}_{4,1}$. Once more, this is to be expected, as
-    20-year bonds are usually constant/steady.
-3.  $\vec{s}_{2,1} + \vec{s}_{3,1} > \vec{s}_{1,1} + \vec{s}_{4,1}$. This is logical due to stocks and bonds'
-    historically low correlation. As such, it is natural
-    that divergence is more likely than convergence.
+1.  $\vec{s}_{1,1} + \vec{s}_{2,1}> \vec{s}_{3,1} + \vec{s}_{4,1}$. That
+    is, it is more likely that overnight stock movement will be positive
+    rather than negative. This is intuitive, as stocks tend to rise.
+2.  $\vec{s}_{1,1} + \vec{s}_{3,1} \approx \vec{s}_{2,1} + \vec{s}_{4,1}$.
+    Once more, this is to be expected, as 20-year bonds are usually
+    constant/steady.
+3.  $\vec{s}_{2,1} + \vec{s}_{3,1} > \vec{s}_{1,1} + \vec{s}_{4,1}$.
+    This is logical due to stocks and bonds' historically low
+    correlation. As such, it is natural that divergence is more likely
+    than convergence.
 
 # 3. Least-Squares Approximation
 
@@ -299,9 +305,11 @@ find the vector $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix}$.
 
 ## 3B. Background (Polynomial Regression)
 
-In this project, we are going to least-squares approximate a polynomial, and the method is given by Theorem 5.6.3 in the textbook.
+In this project, we are going to least-squares approximate a polynomial,
+and the method is given by Theorem 5.6.3 in the textbook.
 
-We have \( n \) data pairs \( (x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n) \), and write
+We have $n$ data pairs $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$, and
+write
 
 $$
 \mathbf{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}, \quad
@@ -316,7 +324,7 @@ z_0 \\ z_1 \\ \vdots \\ z_m
 \end{bmatrix}
 $$
 
-1. If \( \mathbf{z} \) is any solution to the normal equations
+1.  If $\mathbf{z}$ is any solution to the normal equations
 
 $$
 (M^T M)\mathbf{z} = M^T \mathbf{y}
@@ -328,9 +336,12 @@ $$
 z_0 + z_1 x + z_2 x^2 + \cdots + z_m x^m
 $$
 
-is a least squares approximating polynomial of degree \( m \) for the given data pairs.
+is a least squares approximating polynomial of degree $m$ for the given
+data pairs.
 
-2. If at least \( m+1 \) of the numbers \( x_1, x_2, \ldots, x_n \) are distinct (so \( n \geq m+1 \)), the matrix \( M^T M \) is invertible and \( \mathbf{z} \) is uniquely determined by
+2.  If at least $m+1$ of the numbers $x_1, x_2, \ldots, x_n$ are
+    distinct (so $n \geq m+1$), the matrix $M^T M$ is invertible and
+    $\mathbf{z}$ is uniquely determined by
 
 $$
 \mathbf{z} = (M^T M)^{-1} M^T \mathbf{y}
@@ -375,7 +386,9 @@ $$
 \end{array}
 $$
 
-Following this, we opted to fit a 9-degree polynomial, as it is the maximum number of degrees we can fit over a 10-point dataset, rather than a line
+Following this, we opted to fit a 9-degree polynomial, as it is the
+maximum number of degrees we can fit over a 10-point dataset, rather
+than a line
 $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} slope \\ intercept \end{bmatrix}$
 . This would result in the polynomial being represented by the vector in
 **Figure 8**, where each entry $c_i$ is the coefficient of the term in
@@ -524,30 +537,34 @@ $$
 
 Finally, using Python one more time, we were able to use this polynomial
 to approximate the values of each value of $x$, as displayed in **Figure
-16** and plotted in **Figure 17**.
-
+16** and plotted in **Figure 17**. One pattern of note is that due to
+our use of relative error to assess our model's fit, our model is
+displayed as being magnitudes more inaccurate when the original and
+fitted values are very small, as is visible when $x=3$. This is because
+even very small absolute inaccuracies are more significant when measured
+as a percentage of small values of $y$.
 
 **Figure 16:**
 
 $$
-\begin{array}{|c|c|c|}
+\begin{array}{|c|c|c|c|}
 \hline
-\textbf{x} & \textbf{Original} & \textbf{Fitted} \\
+\textbf{x} & \textbf{Original} & \textbf{Fitted} & \textbf{Relative Error (%)} \\
 \hline
-1 & -0.041002 & -0.040999 \\
-2 & -0.028534 & -0.028522 \\
-3 & \phantom{-}0.000848 & \phantom{-}0.000815 \\
-4 & \phantom{-}0.009175 & \phantom{-}0.009258 \\
-5 & -0.006356 & -0.006479 \\
-6 & \phantom{-}0.007206 & \phantom{-}0.007330 \\
-7 & \phantom{-}0.049740 & \phantom{-}0.049659 \\
-8 & \phantom{-}0.057683 & \phantom{-}0.057718 \\
-9 & \phantom{-}0.024539 & \phantom{-}0.024531 \\
-10 & \phantom{-}0.041740 & \phantom{-}0.041742 \\
+1 & -0.041002 & -0.040999 & 0.01 \\
+2 & -0.028534 & -0.028522 & 0.04 \\
+3 & 0.000848 & 0.000815 & 3.89 \\
+4 & 0.009175 & 0.009258 & 0.90 \\
+5 & -0.006356 & -0.006479 & 1.94 \\
+6 & 0.007206 & 0.007330 & 1.72 \\
+7 & 0.049740 & 0.049659 & 0.16 \\
+8 & 0.057683 & 0.057718 & 0.06 \\
+9 & 0.024539 & 0.024531 & 0.03 \\
+10 & 0.041740 & 0.041742 & 0.00 \\
 \hline
 \end{array}
 $$
 
 **Figure 17:**
 
-![](images/clipboard-877262027.png)
+![](images/clipboard-1108162964.png)
