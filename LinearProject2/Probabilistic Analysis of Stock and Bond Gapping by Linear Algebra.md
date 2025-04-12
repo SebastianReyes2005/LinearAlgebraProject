@@ -227,10 +227,16 @@ The steady-state vector found provided three primary insights.
     correlation. As such, it is natural that divergence is more likely
     than convergence.
 
-More generally, limitations of our approach included the fact that we
-only divided stock and bond states by their positive/negative sign,
-meaning that even very small movements would be recorded. Therefore, a
-portion of our data are insignificant movements, which could cloud the
+Connecting this back to the question we posed when beginning this
+project–whether Markov chains could be utilized to model long-term
+market behavior–it appears from our project that they can. The
+steady-state vector we found encapsulates long-term market trends well,
+meaning that in this aspect, our project was a success.
+
+This said, limitations of our approach included the fact that we only
+divided stock and bond states by their positive/negative sign, meaning
+that even very small movements would be recorded. Therefore, a portion
+of our data are insignificant movements, which could cloud the
 probability of actually “meaningful” movements (e.g., an insignificant
 -0.005% will be in the same cateogory as a significant -5%).
 
@@ -402,15 +408,14 @@ $$
 \end{array}
 $$
 
-Following this, we opted to fit a 9-degree polynomial, as it is the
-maximum number of degrees we can fit over a 10-point dataset, rather
-than a line
+Following this, we opted to fit a 8-degree polynomial, rather than a
+line
 $\vec{v} = \begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} slope \\ intercept \end{bmatrix}$
 . This would result in the polynomial being represented by the vector in
 **Figure 8**, where each entry $c_i$ is the coefficient of the term in
 the polynomial $x^i$. In other words, the polynomial represented by
 **Figure 9** would follow the form of
-$y = c_0 + c_1x + c_2x^2 ... c_9x^9$.
+$y = c_0 + c_1x + c_2x^2 ... c_8x^8$.
 
 **Figure 9**:
 
@@ -421,7 +426,7 @@ c_0 \\
 c_1 \\
 c_2 \\
 \vdots \\
-c_9
+c_8
 \end{bmatrix}
 $$
 
@@ -533,7 +538,7 @@ $$
 $$
 
 Plugging these coefficients into our previously established polynomial
-of form $y = c_0 + c_1x + c_2x^2 ... c_9x^9$, we were left with the
+of form $y = c_0 + c_1x + c_2x^2 ... c_8x^8$, we were left with the
 equation below.
 
 **Figure 15:**
@@ -565,7 +570,7 @@ as a percentage of small values of $y$.
 $$
 \begin{array}{|c|c|c|c|}
 \hline
-\textbf{x} & \textbf{Original} & \textbf{Fitted} & \textbf{Relative Error (%)} \\
+\textbf{x} & \textbf{Original} & \textbf{Fitted} & \mathbf{Relative \;Error \; (\%)} \\
 \hline
 1 & -0.041002 & -0.040999 & 0.01 \\
 2 & -0.028534 & -0.028522 & 0.04 \\
@@ -587,7 +592,7 @@ $$
 
 ## 3D. Application Results
 
-The 9-degree polynomial produced revealed an excellent fit to our data,
+The 8-degree polynomial produced revealed an excellent fit to our data,
 with the maximum relative error being only $3.89\%$, and all other
 points having a relative error of less than $2\%$. However, due to the
 high degree of the polynomial we fit, it is very possible that the model
@@ -611,3 +616,32 @@ ability to use large periods of data, as well as capturing too much
 noise to allow the visualization of broader trends.
 
 # 4. Conclusions
+
+Overall, we first used Markov Chains to investigate the relationship
+between SPY’s and TLT’s overnight movement, then we used Least-Square
+Approximation to predict, with accuracy, 10 consecutive data points on
+the 20-day moving average of SPY overnight movements.
+
+However, there are limitations to our model. One important limitation is
+the restricted scope of instruments, as TLT, while useful as a proxy,
+may not capture the movements of other parts of the bond market. Its
+focus on 20+ Year Treasury issues overlooks the role of shorter
+durations, corporate bonds, and other fixed-income securities.
+
+Additionally, the models assume stationarity, implying market behavior
+remains consistent across time. Real-world markets, however, can shift
+rapidly due to macroeconomic events, policy regime changes, and
+technological innovation.
+
+Lastly, this analysis provides correlations based on data rather than
+demonstrating causation, as it cannot identify a direct cause-and-effect
+relationship. Indeed, the observed relationships may be confounded by
+numerous external factors.
+
+To further study stock and bond behaviors outside of regular trading
+hours, studies will need more comprehensive datasets, more
+representative proxies (of stocks and bonds), and more adaptation to
+different market regimes and volatility changes. Linear algebra is an
+excellent tool to research the stock market, but it only provides a
+glimpse of whole picture. This project has made it clearer than ever why
+the average quantitative trader has a Ph.D. in mathematics.
