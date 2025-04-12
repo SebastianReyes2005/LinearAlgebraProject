@@ -599,8 +599,8 @@ high degree of the polynomial we fit, it is very possible that the model
 we created suffers from overfitting, and would not accurately model
 overnight SPY price movements outside of the time interval contained
 within our sample. While the use of overfitted models are common in the
-finance industry, they are often only impressive retrospectively, and it
-is very likely that our model would fail in live trading.
+finance industry, they are only impressive retroactively, and it is very
+likely that our model would fail in live trading.
 
 Additionally, while the use of moving averages to smooth our data worked
 well for the purposes of fitting our model, it also masks some of the
