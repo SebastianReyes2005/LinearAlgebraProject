@@ -227,6 +227,25 @@ The steady-state vector found provided three primary insights.
     correlation. As such, it is natural that divergence is more likely
     than convergence.
 
+More generally, limitations of our approach included the fact that we
+only divided stock and bond states by their positive/negative sign,
+meaning that even very small movements would be recorded. Therefore, a
+portion of our data are insignificant movements, which could cloud the
+probability of actually “meaningful” movements (e.g., an insignificant
+-0.005% will be in the same cateogory as a significant -5%).
+
+Additionally, one of the major pitfalls of our project is that it
+assumes the market is Markovian, meaning that phase $i$ is only
+influenced by phase $i-1$. In reality, a variety of factors, like
+macroeconomic cycles, could influence securities’ movements beyond a
+single trading session.
+
+Third, our Markov matrix is derived from on the data between December
+2004 and April 2025, while the history of SPY and TLT extend way beyond
+this interval, which could led to inaccuracies in representing a larger
+historical trend. Similarly, our data is more prone to underestimating
+short-term volatility due to its coverage of larger economic cycles.
+
 # 3. Least-Squares Approximation
 
 ## 3A. Background (Linear Regression)
